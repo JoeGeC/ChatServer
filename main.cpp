@@ -9,7 +9,7 @@ using namespace std;
 void accepter(Queue<std::string> &queue, std::list<sf::TcpSocket*> &sockets, std::mutex &m)
 {
     sf::TcpListener listener;
-    sf::Socket::Status status = listener.listen(4300);
+    sf::Socket::Status status = listener.listen(4302);
     if (status != sf::Socket::Done)
     {
         std::cerr << "Listen: " << status << std::endl;
@@ -29,12 +29,12 @@ void accepter(Queue<std::string> &queue, std::list<sf::TcpSocket*> &sockets, std
             std::cerr << "Accept: " << status << std::endl;
             return;
         }
-        Receiver *r = new Receiver(socket, true, queue);
+        Receiver *r = new Receiver(socket, queue);
         std::thread([r]{r->recv_loop();}).detach();
     }
 }
 
-int main()
+void runServer()
 {
     Queue<std::string> queue;
     std::mutex m;
@@ -44,7 +44,7 @@ int main()
     while(1)
     {
         std::string s = queue.pop(); // Blocking!
-        std::cout << "Main read: '" << s << "'\n";
+        std::cout << "Main thread: '" << s << "' \n";
         {
             std::unique_lock<std::mutex> l(m);
             for (auto socket : sockets) {
@@ -55,6 +55,46 @@ int main()
             }
         }
     }
+}
+
+void runClient()
+{
+    Queue<std::string> queue;
+    sf::TcpSocket* socket;
+    Receiver receiver(socket, queue);
+    //std::thread(receiver.recv_loop()).detach();
+
+
+
+    /*
+
+    step 1: queue
+    step 2: receive thread(queue)
+    step 3: Game game(queue)
+    step 4: game.run()
+
+    */
+}
+
+int main()
+{
+    char input;
+    while (input != 's' && input != 'c')
+    {
+        std::cout << "(s)erver or (c)lient?" << std::endl;
+        std::cin >> input;
+    }
+
+    if(input == 's')
+    {
+        runServer();
+    }
+    else
+    {
+        runClient();
+    }
+
+
     return 0;
 }
 

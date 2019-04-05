@@ -2,7 +2,9 @@
 #include <cstring>
 #include <iostream>
 
-Receiver::Receiver(sf::TcpSocket* s, bool server, Queue<std::string>& queue)
+Receiver::Receiver(sf::TcpSocket* s, Queue<std::string>& queue_):
+    socket(s),
+    queue(queue_)
 {
     //ctor
 }
@@ -24,9 +26,6 @@ void Receiver::recv_loop()
             return;
         }
 
-        if(isServer)
-        {
-            queue.push(std::string(buffer));
-        }
+        queue.push(std::string(buffer));
     }
 }

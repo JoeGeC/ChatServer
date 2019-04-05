@@ -7,7 +7,7 @@
 class Receiver
 {
     public:
-        Receiver(sf::TcpSocket* s, bool server, Queue<std::string>& queue);
+        Receiver(sf::TcpSocket* s, Queue<std::string>& queue);
         void recv_loop();
 
     protected:
@@ -15,7 +15,7 @@ class Receiver
     private:
         sf::TcpSocket* socket;
         bool isServer = false;
-        Queue<std::string> queue;
+        Queue<std::string> &queue;
 
 };
 

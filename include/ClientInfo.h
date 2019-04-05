@@ -27,13 +27,13 @@ class ClientInfo
         void setUdp(sf::UdpSocket *s, sf::IpAddress a, unsigned short p);
         bool connect(); //TCP
         bool tSend(std::string msg);
-        bool tRecv(std::string &s);
-        bool tRecvLoop();
+        bool tRecv(std::string &s); // optional
+        bool tRecvLoop(); // thread
         bool uSend(std::string msg);
-        bool uRecv(std::string &s);
+        bool uRecv(std::string &s); // optional
         bool uRecvLoop(); //Runs in a thread
         void push(std::string &s); //Enqueues
-        void pop(std::string &s); //Dequeues
+        std::string pop(); //Dequeues
 
     protected:
 
@@ -43,7 +43,7 @@ class ClientInfo
         sf::IpAddress address; //For TCP connect and UDP send
         unsigned short uPort; //For UDP send
         unsigned short tPort; //For TCP connect
-        Queue<Message> q; //Message to be defined
+        Queue<std::string> q; //Message to be defined
 };
 
 #endif // CLIENTINFO_H
