@@ -40,10 +40,10 @@ class ClientInfo
     private:
         sf::TcpSocket *tSocket; //Could use smart pointers
         sf::UdpSocket *uSocket;
-        sf::IpAddress address; //For TCP connect and UDP send
+        sf::IpAddress address = "152.105.67.102"; //For TCP connect and UDP send
         unsigned short uPort; //For UDP send
-        unsigned short tPort; //For TCP connect
-        Queue<std::string> q; //Message to be defined
+        unsigned short tPort = 4302; //For TCP connect
+        Queue<std::string> &q; //Message to be defined
 };
 
 #endif // CLIENTINFO_H

@@ -18,9 +18,8 @@
 					<Add directory="/usr/local/SFML-2.2/include" />
 				</Compiler>
 				<Linker>
-					<Add library="sfml-network" />
 					<Add library="sfml-system" />
-					<Add directory="lib" />
+					<Add library="sfml-network" />
 					<Add directory="/usr/local/SFML-2.2/lib" />
 				</Linker>
 			</Target>

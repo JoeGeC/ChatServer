@@ -1,6 +1,6 @@
 #include <iostream>
 #include <SFML/Network.hpp>
-#include "Receiver.h"
+#include "ClientInfo.h"
 #include <thread>
 #include <list>
 
@@ -29,8 +29,8 @@ void accepter(Queue<std::string> &queue, std::list<sf::TcpSocket*> &sockets, std
             std::cerr << "Accept: " << status << std::endl;
             return;
         }
-        Receiver *r = new Receiver(socket, queue);
-        std::thread([r]{r->recv_loop();}).detach();
+        ClientInfo *c = new ClientInfo(socket, queue);
+        std::thread([c]{c->tRecvLoop();}).detach();
     }
 }
 
@@ -60,10 +60,28 @@ void runServer()
 void runClient()
 {
     Queue<std::string> queue;
-    sf::TcpSocket* socket;
-    Receiver receiver(socket, queue);
-    //std::thread(receiver.recv_loop()).detach();
+    sf::TcpSocket* socket = new sf::TcpSocket;
+    ClientInfo *c = new ClientInfo(socket, queue);
+    // we need to know the address and port of the server
+    c->connect();
+    std::thread([c]{c->tRecvLoop();}).detach();
 
+    // step 3: Game game(queue)
+    while(1)
+    {
+    //step 4: game.run()
+        std::string msg = "";
+
+        queue.pop(msg);
+        if (msg != "")
+        {
+            std::cout << msg << std::endl;
+        }
+        std::string omsg;
+        std::getline(std::cin, omsg);
+        c->tSend(omsg);
+
+    }
 
 
     /*

@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1554464023 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/ChatServer/main.cpp
+1554800095 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/ChatServer/main.cpp
 	<iostream>
 	<SFML/Network.hpp>
-	"Receiver.h"
+	"ClientInfo.h"
 	<thread>
 	<list>
 
@@ -195,20 +195,21 @@
 	<cstring>
 	<iostream>
 
-1554464782 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/ChatServer/src/ClientInfo.cpp
+1554800143 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/ChatServer/src/ClientInfo.cpp
 	"ClientInfo.h"
 	<iostream>
 	<cstring>
 	<SFML/Network.hpp>
 
-1554465435 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/ChatServer/include/ClientInfo.h
+1554800423 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/ChatServer/include/ClientInfo.h
 	<SFML/Network.hpp>
 	"Queue.h"
 
-1553539130 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/ChatServer/src/ClientInfoList.cpp
+1554798685 source:/nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/ChatServer/src/ClientInfoList.cpp
 	"ClientInfoList.h"
+	"ClientInfo.h"
 
-1553538720 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/ChatServer/include/ClientInfoList.h
+1554798670 /nethome1/scm-studs/t7051015/Year 2/Network and Multiplayer Gaming/ChatServer/include/ClientInfoList.h
 	<map>
 	<mutex>
 	"ClientInfo.h"

@@ -3,9 +3,16 @@
 #include <cstring>
 #include <SFML/Network.hpp>
 
-ClientInfo::ClientInfo(sf::TcpSocket *s, Queue<std::string> &q)
+ClientInfo::ClientInfo(sf::TcpSocket *s_, Queue<std::string> &q_) : tSocket(s_), q(q_)
 {
     //ctor
+}
+
+void ClientInfo::setUdp(sf::UdpSocket* s, sf::IpAddress a, unsigned short p)
+{
+    uSocket = s;
+    address = a;
+    uPort = p;
 }
 
 bool ClientInfo::connect()
@@ -19,6 +26,7 @@ bool ClientInfo::connect()
     }
     else
     {
+        std::cout << "tConnected" << std::endl;
         return true;
     }
 }
@@ -34,6 +42,7 @@ bool ClientInfo::tSend(std::string msg)
     }
     else
     {
+        std::cout << "tSent: " << msg << std::endl;
         return true;
     }
 }
@@ -53,7 +62,7 @@ bool ClientInfo::tRecvLoop()
             std::cerr << "Receive: " << status << std::endl;
             return false;
         }
-
+        std::cout << "Received: " << buffer << std::endl;
         q.push(std::string(buffer));
     }
 }
@@ -69,6 +78,7 @@ bool ClientInfo::uSend(std::string msg)
     }
     else
     {
+        std::cout << "uSent: " << msg << std::endl;
         return true;
     }
 }
